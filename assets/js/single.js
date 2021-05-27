@@ -2,6 +2,24 @@ var repoNameEl = document.querySelector("#repo-name");
 var issueContainerEl = document.querySelector("#issues-container");
 var limitWarningEl = document.querySelector("#limit-warning");
 
+var getRepoName = function () {
+  //GRAB REPO NAME FROM URL QUERY STRING
+  var queryString = document.location.search;
+  var repoName = queryString.split("=")[1];
+ 
+  repoNameEl.textContent = repoName;
+
+  if(repoName) {
+    //DISPLAY REPO NAME ON THE PAGE
+    repoNameEl.textContent = repoName;
+
+    getRepoIssues(repoName);
+  } else {
+    //IF NO REPO WAS GIVEN, REDIRECT TO THE HOMEPAGE
+    document.location.replace("./index.html");
+  }
+};
+
 
  
 var getRepoIssues = function(repo) {
@@ -21,8 +39,8 @@ var getRepoIssues = function(repo) {
         }
       });
     } else {
-      console.log(response);
-      alert("There was a problem with your request!");
+      //IF NOT SUCCESSFUL, REDIRECT TO HOMEPAGE
+      document.location.replace("./index.html");
     }
   });
 };
@@ -79,4 +97,4 @@ linkEl.setAttribute("target", "_blank");
 limitWarningEl.appendChild(linkEl);
 };
 
-getRepoIssues("expressjs/express");
+getRepoName();
