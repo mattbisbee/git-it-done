@@ -20,8 +20,6 @@ var getRepoName = function () {
   }
 };
 
-
- 
 var getRepoIssues = function(repo) {
   //FORMAT THE GITHUB API URL
   var apiUrl = "https://api.github.com/repos/" + repo + "/issues?direction=asc";
@@ -52,35 +50,35 @@ var displayIssues = function(issues) {
   }
 
   //LOOP OVER GIVEN ISSUES
-for (var i = 0; i < issues.length; i++) {
+  for (var i = 0; i < issues.length; i++) {
     //CREATE A LINK ELEMENT TO TAKE USERS TO THE ISSUE ON GITHUB
     var issueEl = document.createElement("a");
     issueEl.classList = "list-item flex-row justify-space-between align-center";
     issueEl.setAttribute('href', issues[i].html_url);
     issueEl.setAttribute('target', '_blank');
-  
-//CREATE SPAN TO HOLD ISSUE TITLE
-var titleEl = document.createElement("span");
-titleEl.textContent = issues[i].title;
+    
+    //CREATE SPAN TO HOLD ISSUE TITLE
+    var titleEl = document.createElement("span");
+    titleEl.textContent = issues[i].title;
 
-//APPEND TO CONTAINER
-issueEl.appendChild(titleEl);
+    //APPEND TO CONTAINER
+    issueEl.appendChild(titleEl);
 
-//CREATE A TYPE ELEMENT
-var typeEl = document.createElement("span");
+    //CREATE A TYPE ELEMENT
+    var typeEl = document.createElement("span");
 
-//CHECK IF ISSUE IS AN ACTUAL ISSUE OR A PULL REQUEST
-if (issues[i].pull_request) {
-  typeEl.textContent = "(Pull request)";
-} else {
-  typeEl.textContent = "(Issue)";
-}
-//APPEND TO CONTAINER
-issueEl.appendChild(typeEl);
+    //CHECK IF ISSUE IS AN ACTUAL ISSUE OR A PULL REQUEST
+    if (issues[i].pull_request) {
+      typeEl.textContent = "(Pull request)";
+    } else {
+      typeEl.textContent = "(Issue)";
+    }
+    //APPEND TO CONTAINER
+    issueEl.appendChild(typeEl);
 
-//APPEND TO THE DOM
-issueContainerEl.appendChild(issueEl);
-}
+    //APPEND TO THE DOM
+    issueContainerEl.appendChild(issueEl);
+  }
 };
 
 var displayWarning = function(repo){
